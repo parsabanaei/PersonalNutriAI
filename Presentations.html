@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PersonalNutri AI - Enhanced Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-hover {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(102, 126, 234, 0.6); }
+        }
+        
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+            font-weight: 800;
+        }
+        
+        .progress-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .checkmark {
+            animation: checkmark 0.6s ease-in-out;
+        }
+        
+        @keyframes checkmark {
+            0% { transform: scale(0) rotate(45deg); }
+            50% { transform: scale(1.2) rotate(45deg); }
+            100% { transform: scale(1) rotate(45deg); }
+        }
+        
+        /* Responsive text scaling */
+        @media (max-width: 640px) {
+            .text-responsive-xl { font-size: 2.5rem; }
+            .text-responsive-lg { font-size: 1.875rem; }
+            .text-responsive-md { font-size: 1.25rem; }
+        }
+        
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .text-responsive-xl { font-size: 3.5rem; }
+            .text-responsive-lg { font-size: 2.25rem; }
+            .text-responsive-md { font-size: 1.5rem; }
+        }
+        
+        @media (min-width: 1025px) {
+            .text-responsive-xl { font-size: 4.5rem; }
+            .text-responsive-lg { font-size: 3rem; }
+            .text-responsive-md { font-size: 1.875rem; }
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        
+        .backdrop-blur-glass {
+            backdrop-filter: blur(16px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 smooth-scroll">
+    <!-- Sticky Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="text-xl sm:text-2xl font-bold gradient-text">PersonalNutri AI</div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#problem" class="text-gray-600 hover:text-blue-600 transition-colors">Problem</a>
+                    <a href="#completed" class="text-gray-600 hover:text-blue-600 transition-colors">Completed</a>
+                    <a href="#technical" class="text-gray-600 hover:text-blue-600 transition-colors">Technical</a>
+                    <a href="#results" class="text-gray-600 hover:text-blue-600 transition-colors">Results</a>
+                    <a href="#achievements" class="text-gray-600 hover:text-blue-600 transition-colors">Achievements</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg hover:bg-gray-100">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden pb-4 space-y-2">
+                <a href="#problem" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Problem</a>
+                <a href="#completed" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Completed</a>
+                <a href="#technical" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Technical</a>
+                <a href="#results" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Results</a>
+                <a href="#achievements" class="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Achievements</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="section min-h-screen flex items-center justify-center gradient-bg relative overflow-hidden">
+        <!-- Floating Background Elements -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-20 w-32 md:w-64 h-32 md:h-64 bg-white rounded-full floating"></div>
+            <div class="absolute bottom-20 right-20 w-24 md:w-48 h-24 md:h-48 bg-white rounded-full floating" style="animation-delay: -3s;"></div>
+            <div class="absolute top-1/2 left-10 w-16 md:w-32 h-16 md:h-32 bg-white rounded-full floating" style="animation-delay: -1.5s;"></div>
+        </div>
+        
+        <div class="text-center text-white z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-sm font-medium mb-6">
+                    🎓 CPSC 483 - Machine Learning
+                </div>
+                <h1 class="text-responsive-xl font-black mb-4 leading-tight">
+                    PersonalNutri <span class="text-yellow-300">AI</span>
+                </h1>
+                <h2 class="text-responsive-lg font-light mb-8 opacity-90">
+                    Integrated Health Risk Assessment System
+                </h2>
+                <div class="inline-flex items-center px-6 py-3 bg-white/10 backdrop-blur-md rounded-full">
+                    <div class="w-12 h-12 bg-white rounded-full mr-4 flex items-center justify-center">
+                        <span class="text-2xl">👨‍💻</span>
+                    </div>
+                    <div style="cursor: pointer;" onclick="window.location='https://www.linkedin.com/in/parsa-b-b30034157';" class="text-left">
+                        <div class="font-semibold">By: Parsa Banaei</div>
+                        <div class="text-sm opacity-75">CS major at Cal State Fullerton</div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12">
+                <a href="#problem" class="inline-flex items-center px-8 py-4 bg-white text-gray-800 rounded-full font-semibold hover:bg-gray-100 transition-colors pulse-glow">
+                    <span class="mr-2">Explore Project</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="section py-16 lg:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-5xl md:text-6xl mb-6">🏥</div>
+                <h2 class="text-responsive-lg font-bold gradient-text mb-4">The Problem</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Critical healthcare challenges facing America today</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-16">
+                <!-- Healthcare Challenge Card -->
+                <div class="card-hover bg-gradient-to-br from-red-50 to-red-100 rounded-3xl p-6 lg:p-8 border border-red-200">
+                    <h3 class="text-2xl font-bold text-red-800 mb-6 flex items-center">
+                        <span class="text-3xl mr-3">⚠️</span>
+                        Healthcare Crisis
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-red-500 rounded-full mr-4 flex-shrink-0"></div>
+                            <div class="flex flex-col sm:flex-row sm:items-center">
+                                <span class="font-bold text-2xl lg:text-3xl text-red-600 stat-number">36%</span>
+                                <span class="text-gray-700 sm:ml-2">of US adults are obese</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-orange-500 rounded-full mr-4 flex-shrink-0"></div>
+                            <div class="flex flex-col sm:flex-row sm:items-center">
+                                <span class="font-bold text-2xl lg:text-3xl text-orange-600 stat-number">11%</span>
+                                <span class="text-gray-700 sm:ml-2">have diabetes</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-red-700 rounded-full mr-4 flex-shrink-0"></div>
+                            <div class="text-gray-700">Heart disease kills <span class="font-bold text-red-700">1 in 5</span> Americans</div>
+                        </div>
+                        <div class="mt-6 p-4 bg-red-200/50 rounded-xl">
+                            <div class="font-bold text-red-800 mb-2">Critical Gap:</div>
+                            <div class="text-red-700">No integrated system for comprehensive, accessible health risk assessment</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current Solutions Card -->
+                <div class="card-hover bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-6 lg:p-8 border border-blue-200">
+                    <h3 class="text-2xl font-bold text-blue-800 mb-6 flex items-center">
+                        <span class="text-3xl mr-3">🔧</span>
+                        Current Solutions Fall Short
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                            <div class="text-gray-700">Fragmented tools (obesity <em>OR</em> diabetes <em>OR</em> heart disease)</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                            <div class="text-gray-700">Expensive professional assessments</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full mr-4 mt-2 flex-shrink-0"></div>
+                            <div class="text-gray-700">Oversimplified BMI calculators</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-6 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl">
+                        <div class="flex items-start">
+                            <span class="text-2xl mr-3 flex-shrink-0">🎯</span>
+                            <div>
+                                <div class="font-bold text-lg mb-2">Our Goal</div>
+                                <div class="text-green-100">Create unified ML system for multi-risk health assessment using basic personal data</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What Was Completed Section -->
+    <section id="completed" class="section py-16 lg:py-24 bg-gradient-to-br from-emerald-50 to-teal-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-5xl md:text-6xl mb-6">✅</div>
+                <h2 class="text-responsive-lg font-bold gradient-text mb-4">What Was Completed</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Comprehensive ML system with professional-grade capabilities</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Comprehensive ML System -->
+                <div class="card-hover bg-white rounded-3xl p-6 lg:p-8 border border-emerald-200 shadow-lg">
+                    <h3 class="text-2xl font-bold text-emerald-800 mb-6 flex items-center">
+                        <span class="text-3xl mr-3">🧠</span>
+                        Comprehensive ML System
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-emerald-50 rounded-xl p-4">
+                            <div class="font-semibold text-emerald-800 mb-2 flex items-center">
+                                <span class="text-lg mr-2">🎯</span>
+                                3 Risk Prediction Models
+                            </div>
+                            <div class="text-sm text-gray-600">Obesity • Heart Disease • Diabetes</div>
+                        </div>
+                        <div class="bg-blue-50 rounded-xl p-4">
+                            <div class="font-semibold text-blue-800 mb-2 flex items-center">
+                                <span class="text-lg mr-2">📊</span>
+                                Real Medical Datasets
+                            </div>
+                            <div class="text-sm text-gray-600">NHANES (9,254 participants) + Framingham (4,240 participants)</div>
+                        </div>
+                        <div class="bg-purple-50 rounded-xl p-4">
+                            <div class="font-semibold text-purple-800 mb-2 flex items-center">
+                                <span class="text-lg mr-2">⚙️</span>
+                                Multiple Algorithms
+                            </div>
+                            <div class="text-sm text-gray-600">Random Forest • Logistic Regression • Gradient Boosting</div>
+                        </div>
+                        <div class="bg-orange-50 rounded-xl p-4">
+                            <div class="font-semibold text-orange-800 mb-2 flex items-center">
+                                <span class="text-lg mr-2">🔄</span>
+                                Complete Pipeline
+                            </div>
+                            <div class="text-sm text-gray-600">Data processing → Model training → Risk assessment → Visualization</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Capabilities -->
+                <div class="card-hover bg-white rounded-3xl p-6 lg:p-8 border border-teal-200 shadow-lg">
+                    <h3 class="text-2xl font-bold text-teal-800 mb-6 flex items-center">
+                        <span class="text-3xl mr-3">⚡</span>
+                        System Capabilities
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <span class="text-teal-600">📝</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-800 mb-1">Basic Inputs</div>
+                                <div class="text-sm text-gray-600">Age, gender, height, weight, activity level, family history</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <span class="text-teal-600">📈</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-800 mb-1">Smart Outputs</div>
+                                <div class="text-sm text-gray-600">Risk percentages with detailed explanations & interactive visualizations</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+                                <span class="text-teal-600">💎</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-800 mb-1">Professional Interface</div>
+                                <div class="text-sm text-gray-600">Color-coded risk categories & intuitive user experience design</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Implementation Section -->
+    <section id="technical" class="section py-16 lg:py-24 bg-gray-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-5xl md:text-6xl mb-6">🔧</div>
+                <h2 class="text-responsive-lg font-bold mb-4 text-white">Technical Implementation</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">Advanced data processing and machine learning pipeline</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+                <!-- Data Processing -->
+                <div class="card-hover bg-gradient-to-br from-blue-900 to-blue-800 rounded-3xl p-6 lg:p-8 border border-blue-700">
+                    <h3 class="text-xl lg:text-2xl font-bold text-blue-200 mb-6 flex items-center">
+                        <span class="text-2xl lg:text-3xl mr-3">📊</span>
+                        Data Processing
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-blue-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-blue-100 mb-1">NHANES Integration</div>
+                            <div class="text-blue-200">8,704 complete records merged from demographics + body measurements</div>
+                        </div>
+                        <div class="bg-blue-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-blue-100 mb-1">Feature Engineering</div>
+                            <div class="text-blue-200">BMI categories, age groups, activity level encoding</div>
+                        </div>
+                        <div class="bg-blue-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-blue-100 mb-1">Data Quality</div>
+                            <div class="text-blue-200">Strategic imputation techniques for missing data handling</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Machine Learning -->
+                <div class="card-hover bg-gradient-to-br from-purple-900 to-purple-800 rounded-3xl p-6 lg:p-8 border border-purple-700">
+                    <h3 class="text-xl lg:text-2xl font-bold text-purple-200 mb-6 flex items-center">
+                        <span class="text-2xl lg:text-3xl mr-3">🤖</span>
+                        Machine Learning
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-purple-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-purple-100 mb-1">Obesity Model</div>
+                            <div class="text-purple-200">Compared 3 algorithms, selected Logistic Regression for optimal performance</div>
+                        </div>
+                        <div class="bg-purple-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-purple-100 mb-1">Diabetes Model</div>
+                            <div class="text-purple-200">Evidence-based risk calculator following ADA guidelines</div>
+                        </div>
+                        <div class="bg-purple-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-purple-100 mb-1">Heart Disease Model</div>
+                            <div class="text-purple-200">Random Forest algorithm trained on Framingham dataset</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Integration -->
+                <div class="card-hover bg-gradient-to-br from-emerald-900 to-emerald-800 rounded-3xl p-6 lg:p-8 border border-emerald-700">
+                    <h3 class="text-xl lg:text-2xl font-bold text-emerald-200 mb-6 flex items-center">
+                        <span class="text-2xl lg:text-3xl mr-3">🔗</span>
+                        System Integration
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="bg-emerald-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-emerald-100 mb-1">Unified Pipeline</div>
+                            <div class="text-emerald-200">Complete input validation with comprehensive error checking</div>
+                        </div>
+                        <div class="bg-emerald-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-emerald-100 mb-1">Interactive Visualizations</div>
+                            <div class="text-emerald-200">Dynamic Plotly charts with real-time data updates</div>
+                        </div>
+                        <div class="bg-emerald-800/50 rounded-lg p-3">
+                            <div class="font-semibold text-emerald-100 mb-1">Error Handling</div>
+                            <div class="text-emerald-200">Comprehensive system protection and graceful failure handling</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="section py-16 lg:py-24 bg-gradient-to-br from-green-50 to-emerald-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-5xl md:text-6xl mb-6">📈</div>
+                <h2 class="text-responsive-lg font-bold gradient-text mb-4">Outstanding Results</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">Performance metrics that exceed industry standards</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12">
+                <!-- Performance Metrics -->
+                <div class="card-hover bg-white rounded-3xl p-6 lg:p-8 border border-green-200 shadow-lg">
+                    <h3 class="text-2xl font-bold text-green-800 mb-8 flex items-center">
+                        <span class="text-3xl mr-3">🎯</span>
+                        Performance Metrics
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="bg-green-50 rounded-2xl p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="font-semibold text-green-800">Obesity Model</span>
+                                <span class="text-2xl lg:text-3xl font-bold text-green-600 stat-number">98.4%</span>
+                            </div>
+                            <div class="w-full bg-green-200 rounded-full h-3 mb-2">
+                                <div class="bg-green-600 h-3 rounded-full progress-bar" style="width: 0%" data-width="98.4"></div>
+                            </div>
+                            <div class="flex items-center text-sm text-green-600">
+                                <span class="checkmark mr-2">✅</span>
+                                Target: >85% - Exceeded by 13.4%
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 rounded-2xl p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="font-semibold text-blue-800">Heart Disease Model</span>
+                                <span class="text-2xl lg:text-3xl font-bold text-blue-600 stat-number">87.6%</span>
+                            </div>
+                            <div class="w-full bg-blue-200 rounded-full h-3 mb-2">
+                                <div class="bg-blue-600 h-3 rounded-full progress-bar" style="width: 0%" data-width="87.6"></div>
+                            </div>
+                            <div class="flex items-center text-sm text-blue-600">
+                                <span class="checkmark mr-2">✅</span>
+                                AUC Target: >70% - Exceeded by 17.6%
+                            </div>
+                        </div>
+                        
+                        <div class="bg-purple-50 rounded-2xl p-6">
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="font-semibold text-purple-800">System Integration</span>
+                                <span class="text-2xl lg:text-3xl font-bold text-purple-600 stat-number">100%</span>
+                            </div>
+                            <div class="w-full bg-purple-200 rounded-full h-3 mb-2">
+                                <div class="bg-purple-600 h-3 rounded-full progress-bar" style="width: 0%" data-width="100"></div>
+                            </div>
+                            <div class="flex items-center text-sm text-purple-600">
+                                <span class="checkmark mr-2">✅</span>
+                                Complete end-to-end functionality achieved
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Model Comparison -->
+                <div class="card-hover bg-white rounded-3xl p-6 lg:p-8 border border-purple-200 shadow-lg">
+                    <h3 class="text-2xl font-bold text-purple-800 mb-8 flex items-center">
+                        <span class="text-3xl mr-3">🏆</span>
+                        Model Comparison
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                                <span class="font-medium text-gray-800 mb-2 sm:mb-0">Random Forest</span>
+                                <div class="text-right">
+                                    <div class="text-sm text-gray-600">98.7% accuracy</div>
+                                    <div class="text-xs text-gray-500">99.8% AUC</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-purple-100 to-purple-50 rounded-xl p-4 border-2 border-purple-300 relative">
+                            <div class="absolute top-2 right-2">
+                                <span class="bg-purple-600 text-white text-xs px-2 py-1 rounded-full">SELECTED</span>
+                            </div>
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                                <span class="font-bold text-purple-800 mb-2 sm:mb-0">Logistic Regression</span>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-purple-700">98.4% accuracy</div>
+                                    <div class="text-xs font-bold text-purple-600">99.9% AUC ⭐</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-gray-50 rounded-xl p-4">
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                                <span class="font-medium text-gray-800 mb-2 sm:mb-0">Gradient Boosting</span>
+                                <div class="text-right">
+                                    <div class="text-sm text-gray-600">99.1% accuracy</div>
+                                    <div class="text-xs text-gray-500">99.9% AUC</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-gradient-to-r from-green-100 to-emerald-100 rounded-xl border border-green-200">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-3 flex-shrink-0">
+                                <span class="text-white text-sm">✓</span>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-green-800 mb-1">Validation Success</div>
+                                <div class="text-sm text-green-700">System correctly identifies risk patterns across all test cases including edge cases</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Achievements Section -->
+    <section id="achievements" class="section py-16 lg:py-24 gradient-bg text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <div class="text-5xl md:text-6xl mb-6">🌟</div>
+                <h2 class="text-responsive-lg font-bold mb-4">Key Achievements</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">Excellence across academic, technical, and real-world impact dimensions</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 lg:gap-8 mb-12">
+                <!-- Academic Excellence -->
+                <div class="card-hover backdrop-blur-glass rounded-3xl p-6 lg:p-8 border border-white/20">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">🎓</span>
+                        </div>
+                        <h3 class="text-xl lg:text-2xl font-bold">Academic Excellence</h3>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-yellow-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Used real medical datasets (NHANES & Framingham) instead of synthetic Kaggle data</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-yellow-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Performance exceeds typical course standards by <strong>13%</strong></div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-yellow-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Clinically valid predictions aligned with established medical guidelines</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Technical Innovation -->
+                <div class="card-hover backdrop-blur-glass rounded-3xl p-6 lg:p-8 border border-white/20">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">💡</span>
+                        </div>
+                        <h3 class="text-xl lg:text-2xl font-bold">Technical Innovation</h3>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Novel integration of multiple health risks in a unified predictive system</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Combines advanced ML predictions with established medical knowledge</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-blue-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Explainable AI with clear, actionable risk explanations</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Real-World Impact -->
+                <div class="card-hover backdrop-blur-glass rounded-3xl p-6 lg:p-8 border border-white/20">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-3xl">🌍</span>
+                        </div>
+                        <h3 class="text-xl lg:text-2xl font-bold">Real-World Impact</h3>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Provides accessible health risk assessment for anyone, anywhere</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Scalable architecture for population-level health screening programs</div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-2 h-2 bg-green-400 rounded-full mr-3 mt-2 flex-shrink-0"></div>
+                            <div>Strong foundation for clinical decision support systems</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Final Call to Action -->
+            <div class="text-center">
+                <div class="inline-flex items-center px-8 lg:px-12 py-4 lg:py-6 bg-white text-gray-800 rounded-3xl font-bold text-lg lg:text-xl shadow-2xl">
+                    <span class="text-2xl lg:text-3xl mr-4">🚀</span>
+                    <div>
+                        <div class="text-xl lg:text-2xl font-black gradient-text">PersonalNutri AI</div>
+                        <div class="text-sm lg:text-base font-normal text-gray-600">Ready for deployment with exported models and web integration</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Deployment Status -->
+            <div class="mt-12 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="backdrop-blur-glass rounded-2xl p-6 border border-white/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
+                        <span class="font-semibold">System Status: Ready</span>
+                    </div>
+                    <div class="text-sm opacity-90">
+                        All models trained, validated, and integrated into a cohesive prediction pipeline ready for production deployment.
+                    </div>
+                </div>
+                
+                <div class="backdrop-blur-glass rounded-2xl p-6 border border-white/20">
+                    <div class="flex items-center mb-4">
+                        <div class="w-3 h-3 bg-blue-400 rounded-full mr-3 animate-pulse"></div>
+                        <span class="font-semibold">Impact Potential: High</span>
+                    </div>
+                    <div class="text-sm opacity-90">
+                        Addresses critical healthcare gaps with clinically validated, accessible technology solutions.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="text-2xl font-bold gradient-text mb-4">PersonalNutri AI</div>
+                <p class="text-gray-400 mb-6">Transforming Healthcare Through Machine Learning</p>
+                <div class="flex justify-center items-center space-x-6 text-sm text-gray-500">
+                    <span>CPSC 483 - Machine Learning</span>
+                    <span>•</span>
+                    <span>By Parsa Banaei</span>
+                    <span>•</span>
+                    <span>2025</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger progress bar animations for results section
+                    if (entry.target.id === 'results') {
+                        setTimeout(() => {
+                            animateProgressBars();
+                        }, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Animate progress bars
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar[data-width]');
+            progressBars.forEach(bar => {
+                const width = bar.getAttribute('data-width');
+                setTimeout(() => {
+                    bar.style.width = width + '%';
+                }, Math.random() * 200);
+            });
+        }
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.gradient-bg');
+            if (parallax) {
+                const speed = scrolled * 0.5;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+
+        // Add typing effect to the main title (optional)
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect when hero section becomes visible
+        let heroAnimated = false;
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !heroAnimated) {
+                    heroAnimated = true;
+                    // Add any hero-specific animations here
+                }
+            });
+        });
+
+        const heroSection = document.querySelector('.gradient-bg');
+        if (heroSection) {
+            heroObserver.observe(heroSection);
+        }
+
+        // Add scroll-to-top functionality
+        let scrollToTopBtn = document.createElement('button');
+        scrollToTopBtn.innerHTML = '↑';
+        scrollToTopBtn.className = 'fixed bottom-8 right-8 w-12 h-12 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 opacity-0 pointer-events-none z-50';
+        scrollToTopBtn.style.transform = 'translateY(100px)';
+        document.body.appendChild(scrollToTopBtn);
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 500) {
+                scrollToTopBtn.style.opacity = '1';
+                scrollToTopBtn.style.pointerEvents = 'auto';
+                scrollToTopBtn.style.transform = 'translateY(0)';
+            } else {
+                scrollToTopBtn.style.opacity = '0';
+                scrollToTopBtn.style.pointerEvents = 'none';
+                scrollToTopBtn.style.transform = 'translateY(100px)';
+            }
+        });
+
+        // Add loading animation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add any loading animations or initialization here
+            console.log('PersonalNutri AI Presentation Loaded Successfully');
+        });
+    </script>
+</body>
+</html>
