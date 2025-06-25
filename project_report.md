@@ -1,7 +1,12 @@
 # PersonalNutri AI: Integrated Health Risk Assessment and Personalized Nutrition Recommendation System
 
 ## Team Members
+
 **Parsa Banaei** (Individual Project)
+
+## Repository
+
+**GitHub Repository:** https://github.com/parsabanaei/PersonalNutriAI
 
 ---
 
@@ -12,6 +17,7 @@
 The current healthcare landscape faces a critical gap in accessible, comprehensive health risk assessment. While individual health conditions like obesity, diabetes, and cardiovascular disease affect millions of Americans (36%, 11%, and 20% respectively), existing assessment tools are fragmented and inadequate:
 
 **Current Limitations:**
+
 - **Fragmented Approach:** Separate tools for different conditions, preventing holistic health evaluation
 - **Limited Accessibility:** Professional health assessments are expensive and require clinical visits
 - **Oversimplified Solutions:** Basic BMI calculators and generic risk scores lack personalization
@@ -31,6 +37,7 @@ The current healthcare landscape faces a critical gap in accessible, comprehensi
 The project implements a multi-model machine learning architecture that combines supervised learning algorithms with evidence-based medical guidelines to provide comprehensive health risk assessment.
 
 **Data Integration Strategy:**
+
 1. **NHANES Dataset Merging:** Combined demographics and body measurement data using inner join on participant IDs to ensure complete health profiles
 2. **External Validation:** Used Framingham Heart Study as independent validation dataset to prove generalizability
 3. **Feature Engineering:** Created clinically meaningful variables including BMI categories (WHO standards), age groups, and activity level proxies
@@ -38,23 +45,27 @@ The project implements a multi-model machine learning architecture that combines
 **Machine Learning Pipeline:**
 
 **Phase 1 - Obesity Risk Prediction:**
+
 - **Algorithm Comparison:** Systematically compared Random Forest, Logistic Regression, and Gradient Boosting
 - **Feature Set:** Age, gender, height, weight, activity level
 - **Selection Criteria:** Chose Logistic Regression based on highest AUC score (99.88%)
 - **Preprocessing:** StandardScaler for feature normalization, SimpleImputer for missing values
 
 **Phase 2 - Diabetes Risk Assessment:**
+
 - **Approach:** Evidence-based risk calculator implementing American Diabetes Association guidelines
 - **Risk Factors:** Age thresholds (45+), BMI categories (25+), gender adjustments, family history, lifestyle factors
 - **Implementation:** Sigmoid transformation to convert risk scores to interpretable probabilities (0-100%)
 
 **Phase 3 - Cardiovascular Risk Prediction:**
+
 - **Training Data:** Framingham Heart Study dataset for external validation
 - **Algorithm:** Random Forest Classifier for handling mixed clinical data types
 - **Features:** Age, gender, blood pressure, cholesterol, heart rate, exercise-induced angina
 - **Dual Approach:** Combined ML predictions with rule-based risk calculations for robustness
 
 **Integration Strategy:**
+
 - **Unified Pipeline:** Single prediction function combining all three risk assessments
 - **Input Validation:** Comprehensive error handling and range checking
 - **Explanation Engine:** Automated generation of risk explanations based on contributing factors
@@ -69,6 +80,7 @@ The project implements a multi-model machine learning architecture that combines
 **Programming Language:** Python 3.11
 
 **Core Libraries:**
+
 - **Data Processing:** pandas 2.2.2, numpy 1.26.4
 - **Machine Learning:** scikit-learn 1.6.1 (RandomForestClassifier, LogisticRegression, GradientBoostingClassifier)
 - **Data Preprocessing:** StandardScaler, LabelEncoder, SimpleImputer
@@ -77,15 +89,18 @@ The project implements a multi-model machine learning architecture that combines
 - **Model Persistence:** joblib 1.5.1, pickle
 
 **Computing Platform:** Google Colab (cloud-based Jupyter environment)
+
 - **Advantages:** GPU acceleration, pre-installed libraries, collaborative features
 - **Resource Allocation:** Standard runtime with 12GB RAM, sufficient for dataset processing
 
 **Development Environment:**
+
 - **Version Control:** Reproducible random seeds (np.random.seed(42))
 - **Code Organization:** Modular functions for data loading, preprocessing, model training, and evaluation
 - **Error Handling:** Comprehensive try-catch blocks with informative error messages
 
 **File Processing:**
+
 - **NHANES Data:** Custom loading functions handling SAS transport (.xpt) format with pandas fallback to xport library
 - **CSV Processing:** Standard pandas operations with encoding specifications
 - **Model Export:** Joblib serialization for sklearn models, JSON for metadata
@@ -99,11 +114,12 @@ The project implements a multi-model machine learning architecture that combines
 **Primary Datasets:**
 
 **1. NHANES (National Health and Nutrition Examination Survey) 2017-2018**
+
 - **Source:** CDC (Centers for Disease Control and Prevention)
 - **Demographics File (DEMO_J.xpt):** 9,254 participants × 46 variables
   - Personal demographics, socioeconomic status, survey weights
   - Key variables: age, gender, race/ethnicity, education, income
-- **Body Measurements File (BMX_J.xpt):** 8,704 participants × 21 variables  
+- **Body Measurements File (BMX_J.xpt):** 8,704 participants × 21 variables
   - Physical examination data: height, weight, BMI, waist circumference
   - Collected by trained medical technicians using standardized protocols
 - **Merged Dataset:** 8,704 complete records × 66 variables
@@ -111,6 +127,7 @@ The project implements a multi-model machine learning architecture that combines
 - **Quality:** Research-grade data with complex sampling design and survey weights
 
 **2. Framingham Heart Study Dataset**
+
 - **Source:** Framingham Heart Study (public research dataset)
 - **Size:** 4,240 participants × 17 clinical variables
 - **Content:** Cardiovascular disease risk factors and 10-year outcomes
@@ -119,6 +136,7 @@ The project implements a multi-model machine learning architecture that combines
 - **Target Variable:** 10-year coronary heart disease risk (15.19% prevalence)
 
 **Data Quality Characteristics:**
+
 - **Missing Data Handling:** Strategic approach preserving data quality over quantity
   - NHANES: 177,248 missing values across all variables (handled via imputation and inner joins)
   - Framingham: 645 missing values (minimal impact on analysis)
@@ -136,27 +154,30 @@ Unlike typical academic ML projects using Kaggle datasets, this project utilizes
 
 **Obesity Prediction Model Performance:**
 
-| Algorithm | Accuracy | Precision | Recall | F1-Score | AUC |
-|-----------|----------|-----------|--------|----------|-----|
-| Random Forest | 98.68% | 98.93% | 96.27% | 97.58% | 99.82% |
+| Algorithm               | Accuracy   | Precision  | Recall     | F1-Score   | AUC        |
+| ----------------------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+| Random Forest           | 98.68%     | 98.93%     | 96.27%     | 97.58%     | 99.82%     |
 | **Logistic Regression** | **98.45%** | **97.89%** | **96.47%** | **97.18%** | **99.88%** |
-| Gradient Boosting | 99.14% | 98.75% | 98.13% | 98.44% | 99.88% |
+| Gradient Boosting       | 99.14%     | 98.75%     | 98.13%     | 98.44%     | 99.88%     |
 
 **Model Selection:** Logistic Regression selected based on highest AUC score (99.88%), indicating superior probability calibration essential for medical applications.
 
 **Heart Disease Prediction Model:**
+
 - **Algorithm:** Random Forest Classifier
 - **Accuracy:** 93.75%
 - **AUC Score:** 87.56%
 - **Performance vs. Target:** 87.6% AUC exceeds 70% clinical threshold by 17.6 percentage points
 
 **Performance Targets vs. Achieved:**
+
 - **Obesity Model Target:** >85% accuracy → **Achieved:** 98.4% (+13.4%)
 - **Heart Disease Target:** >70% AUC → **Achieved:** 87.6% (+17.6%)
 - **Both targets significantly exceeded**
 
 **System Performance Metrics:**
-- **Training Time:** 
+
+- **Training Time:**
   - Data loading and preprocessing: ~2 minutes
   - Model training (all algorithms): ~5 minutes
   - Total pipeline execution: <10 minutes
@@ -165,11 +186,13 @@ Unlike typical academic ML projects using Kaggle datasets, this project utilizes
 - **Scalability:** System handles 8,704+ records efficiently
 
 **Cross-Validation Results:**
+
 - **Obesity Model:** 5-fold cross-validation average AUC: 99.85% (±0.02%)
 - **Heart Disease Model:** 5-fold cross-validation average AUC: 86.91% (±1.2%)
 - **Consistency:** Low variance indicates robust model performance
 
 **Clinical Validation:**
+
 - **Test Cases:** 4 diverse demographic profiles validated
   - Young healthy adult: All low risks (medically appropriate)
   - Middle-aged overweight male: Elevated obesity and moderate other risks
@@ -178,6 +201,7 @@ Unlike typical academic ML projects using Kaggle datasets, this project utilizes
 - **Medical Alignment:** All predictions align with established clinical knowledge
 
 **Feature Importance Analysis:**
+
 - **Obesity Prediction:** Weight (0.45), BMI (0.32), Height (0.15), Age (0.05), Gender (0.03)
 - **Validates Clinical Knowledge:** Physical measurements most predictive, demographic factors secondary
 
@@ -218,17 +242,20 @@ Unlike typical academic ML projects using Kaggle datasets, this project utilizes
 The project successfully demonstrates that sophisticated machine learning can be applied to healthcare challenges while maintaining clinical validity and interpretability. The system's performance exceeds academic standards and approaches clinical-grade tools, suggesting potential for real-world deployment.
 
 **Broader Implications:**
+
 - **Democratization of Healthcare:** The system makes professional-quality health assessment accessible to anyone with basic personal information
 - **Preventive Care Enhancement:** Early risk identification could enable proactive health interventions
 - **Healthcare Cost Reduction:** Accessible screening could reduce expensive emergency interventions through early detection
 
 **Technical Contributions:**
+
 - Novel integration of multiple health risks in unified ML system
 - Demonstration of combining ML predictions with medical domain knowledge
 - Proof-of-concept for explainable AI in healthcare applications
 - Open-source foundation for community contribution and extension
 
 **Future Enhancements:**
+
 - Integration with wearable device data for continuous monitoring
 - Expansion to additional health conditions and risk factors
 - Clinical trial validation with healthcare providers
@@ -244,7 +271,7 @@ This project represents a successful bridge between academic machine learning re
 
 2. **Framingham Heart Study** - Original cohort cardiovascular disease dataset. Available through various academic repositories and Kaggle.
 
-3. **American Diabetes Association.** Standards of Medical Care in Diabetes. *Diabetes Care*, various guidelines for diabetes risk assessment.
+3. **American Diabetes Association.** Standards of Medical Care in Diabetes. _Diabetes Care_, various guidelines for diabetes risk assessment.
 
 4. **World Health Organization.** BMI Classification Guidelines. Available at: https://www.who.int/health-topics/obesity
 
@@ -257,11 +284,13 @@ This project represents a successful bridge between academic machine learning re
 8. **Python xport Library** - For reading SAS transport files. Available at: https://pypi.org/project/xport/
 
 **Datasets Sources:**
+
 - NHANES Demographics: https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Demographics&CycleBeginYear=2017
 - NHANES Body Measurements: https://wwwn.cdc.gov/nchs/nhanes/search/datapage.aspx?Component=Examination&CycleBeginYear=2017
 - Framingham Heart Study: https://www.kaggle.com/datasets/aasheesh200/framingham-heart-study-dataset?resource=download
 
 **Academic Resources:**
+
 - CDC NHANES Tutorial: https://wwwn.cdc.gov/nchs/nhanes/tutorials/default.aspx
 - Scikit-learn User Guide: https://scikit-learn.org/stable/user_guide.html
 - Plotly Gauge Charts: https://plotly.com/python/gauge-charts/
