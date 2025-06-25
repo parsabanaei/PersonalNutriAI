@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Machine Learning
+*.pkl
+*.model
+*.h5
+*.ckpt
+models/
+checkpoints/
+
+# Data files (keep small ones, exclude large datasets)
+# Uncomment if you want to exclude data files:
+# *.csv
+# *.xpt
+# *.json
+# *.parquet
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Environment variables
+.env 
